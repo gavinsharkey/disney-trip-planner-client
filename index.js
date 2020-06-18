@@ -15,10 +15,9 @@ const eventDelegation = function() {
     API.getTripData(tripId)
     .then(json => {
       Trip.load(json)
-      return json['days']
-    })
-    .then(days => {
-      debugger
+      for (let day of json['days']) {
+
+      }
     })
   })
 }
