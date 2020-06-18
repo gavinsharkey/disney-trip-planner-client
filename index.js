@@ -4,15 +4,22 @@ const eventDelegation = function() {
 
   newTripForm.addEventListener('submit', (e) => {
     e.preventDefault()
-    const div = document.querySelector('#new-trip-form')
-    const tripDataDiv = document.querySelector('#trip')
-    div.classList.add('hidden')
-    tripDataDiv.classList.remove('hidden')
+    Togglable.toggleTripDiv()
   })
 
   const loadTripForm = document.querySelector('#load-trip-form')
   loadTripForm.addEventListener('submit', (e) => {
     e.preventDefault()
+    const tripId = e.target.querySelector('select').value
+
+    API.getTripData(tripId)
+    .then(json => {
+      Trip.load(json)
+      return json['days']
+    })
+    .then(days => {
+      debugger
+    })
   })
 }
 
@@ -29,7 +36,6 @@ const loadTrips = function() {
   API.getTripsData()
   .then(json => fillTripsSelect(json))
 }
-
 
 document.addEventListener('DOMContentLoaded', () => {
   loadTrips()
