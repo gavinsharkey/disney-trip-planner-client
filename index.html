@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <script src="./js/models/api.js"></script>
+  <script src="index.js"></script>
+</head>
+<body>
+  <div id="main" class="m-2"></div>
+  <h1 class="text-center">Disney Trip</h1>
+  <div id="new-trip-form" class="container-sm">
+    <form action="#" class="form-inline">
+      <label for="name" class="mr-sm-2">Name: </label>
+      <input type="text" name="name" class="form-control mr-sm-2">
+      <button type="submit" class="btn btn-primary">Create</button>
+    </form>
+  </div>
+  <div id="trip" class="container-fluid border p-2 clearfix hidden">
+    <div id="trip-data" class="container w-75 border p-3 float-left" >
+
+    </div>
+    <div id="add-reserve-form" class="container w-25 border p-3 float-left" >
+      <form action="#" data-day-id="1">
+        <div class="form-group">
+          <label for="reservable_id">Select: </label>
+          <select class="form-control" name="reservable_id" id="reservable-id-field"></select>
+        </div>
+        <div class="form-group">
+          <input type="submit" class="form-control btn btn-secondary" value="Add">
+        </div>
+      </form>
+    </div>
+  </div>
+  <footer class="fixed-bottom bg-dark">
+    <div class="container-fluid p-3 mh-100 text-white">
+      <form id="load-trip-form" action="#" class="form-inline">
+        <label class="mr-2" for="trip_id">Load Trip:</label>
+        <select class="mr-2" id="trips-select" name="name">
+
+        </select>
+        <input type="submit" value="Load Trip" class="btn btn-secondary">
+      </form>
+    </div>
+  </footer>
+</body>
+</html>
