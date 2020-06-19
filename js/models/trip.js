@@ -11,13 +11,17 @@ class Trip {
     const trip = new Trip(data)
     trip.setHTML()
     Togglable.toggleTripDiv()
+
+    for (let day of data['days']) {
+      Day.load(day)
+    }
   }
 
   setHTML() {
     const tripNameHeader = document.querySelector('#trip-name')
-    const tripDaysList = document.querySelector('#trip-days')
+    const tripDataDiv = document.querySelector('#trip-data')
 
     tripNameHeader.innerHTML = this.name
-    tripDaysList.dataset.tripId = this.id
+    tripDataDiv.dataset.tripId = this.id
   }
 }
