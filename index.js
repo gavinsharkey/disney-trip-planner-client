@@ -13,12 +13,7 @@ const eventDelegation = function() {
     const tripId = e.target.querySelector('select').value
 
     API.getTripData(tripId)
-    .then(json => {
-      Trip.load(json)
-      for (let day of json['days']) {
-
-      }
-    })
+    .then(json => Trip.load(json))
   })
 }
 
