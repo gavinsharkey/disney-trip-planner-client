@@ -26,16 +26,28 @@
   <div id="trip" class="container-fluid border p-2 clearfix hidden">
     <div id="trip-data" class="container w-75 border p-3 float-left" >
       <h3 id="trip-name"></h3>
-      <button id="add-day-button" class="btn btn-md btn-primary">Add Day</button>
-      <ul id="trip-days" class="list-group">
+      <button id="add-day-button" class="btn btn-md btn-primary">Add Day</button><br />
+      <ul id="trip-days" class="list-group mt-1">
         
       </ul>
     </div>
-    <div id="add-reserve-form" class="container w-25 border p-3 float-left" >
-      <form action="#" data-day-id="1">
+    <div id="add-reserve-form-div" class="container w-25 border p-3 float-left" >
+      <form id="add-reserve-form" action="#">
         <div class="form-group">
-          <label for="reservable_id">Select: </label>
-          <select class="form-control" name="reservable_id" id="reservable-id-field"></select>
+          <label for="reservable_type">Select Type: </label>
+          <select class="form-control" name="reservable_type" id="reservable-type-select">
+            <option value="" selected>Select...</option>
+            <option value="Attraction">Attraction</option>
+            <option value="Restaurant">Restaurant</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="resort">Select Resort Or Park: </label>
+          <select id="resort-select" class="form-control" name="resort" id="resort-select"></select>
+        </div>
+        <div class="form-group">
+          <label id="reservable_id_label" for="reservable_id">Select: </label>
+          <select id="reservable_id-select" class="form-control" name="reservable_id"></select>
         </div>
         <div class="form-group">
           <input type="submit" class="form-control btn btn-secondary" value="Add">
