@@ -8,6 +8,8 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
   <script src="./js/models/api.js"></script>
   <script src="./js/concerns/togglable.js"></script>
+  <script src="./js/models/reservation.js"></script>
+  <script src="./js/models/day.js"></script>
   <script src="./js/models/trip.js"></script>
   <script src="index.js"></script>
 </head>
@@ -23,17 +25,10 @@
   </div>
   <div id="trip" class="container-fluid border p-2 clearfix hidden">
     <div id="trip-data" class="container w-75 border p-3 float-left" >
-      <h3 id="trip-name">Trip</h3>
+      <h3 id="trip-name"></h3>
+      <button id="add-day-button" class="btn btn-md btn-primary">Add Day</button>
       <ul id="trip-days" class="list-group">
-        <!-- <li class="list-group-item list-group-item-primary p-1">
-          <span>Day 1</span>
-          <button class="btn btn-dark btn-sm">Delete</button>
-          <ul class="list-group">
-            <li class="list-group-item list-group-item-dark p-1">
-              <span>Haunted Mansion</span>
-            </li> -->
-          </ul>
-        </li>
+        
       </ul>
     </div>
     <div id="add-reserve-form" class="container w-25 border p-3 float-left" >
