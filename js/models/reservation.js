@@ -18,7 +18,7 @@ class Reservation {
   renderHTML() {
     const dayReservationList = document.querySelector(`li[data-day-id="${this.dayId}"] ul`)
     dayReservationList.innerHTML += `
-      <li class="list-group-item list-group-item-dark p-1" data-reservation-id="${this.id}">
+      <li class="list-group-item p-2 text-dark" data-reservation-id="${this.id}">
         <span>${this.type}: ${this.name}</span>
         <span>, at ${this.time}</span>
       </li>
