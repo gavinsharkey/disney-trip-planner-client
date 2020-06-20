@@ -7,6 +7,11 @@ class Day {
     this.place = place
   }
 
+  static create(tripId) {
+    API.createDay(tripId)
+    .then(json => this.load(json))
+  }
+
   static clearDaysDiv() {
     const daysDiv = document.querySelector('#trip-days')
     daysDiv.innerHTML = ""
@@ -35,9 +40,13 @@ class Day {
     }
   }
 
-  static destroy(data) {
-    const day = new Day(data)
-    day.removeHTML()
+  static destroy(dayId) {
+    API.destroyDay(dayId)
+    .then(json => {
+      const day = new Day(json)
+      day.removeHTML()
+    })
+    
   }
 
   removeHTML() {
