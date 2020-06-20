@@ -70,9 +70,10 @@ const newReservationEventDelegation = function() {
 
 document.addEventListener('DOMContentLoaded', () => {
   Loadable.loadTrips()
+  Loadable.loadRestaurantResortSelection()
+  Loadable.loadAttractionParksSelection()
+  
   formEventDelegation()
   dayEventDelegation()
   newReservationEventDelegation()
-  Loadable.loadRestaurantResortSelection()
-  Loadable.loadAttractionParksSelection()
 })
