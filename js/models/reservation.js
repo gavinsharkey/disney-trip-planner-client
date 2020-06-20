@@ -22,6 +22,14 @@ class Reservation {
     this.clearForms()
   }
 
+  static destroy(reservationId) {
+    API.destroyReservation(reservationId)
+    .then(json => {
+      const res = new Reservation(json)
+      res.removeHTML()
+    })
+  }
+
   static load(data) {
     const res = new Reservation(data)
     res.renderHTML()
@@ -72,6 +80,11 @@ class Reservation {
     } else {
       return `${this.time} PM`
     }
+  }
+
+  removeHTML() {
+    const reservationLi = document.querySelector(`li[data-reservation-id="${this.id}"]`)
+    reservationLi.remove()
   }
 
   renderHTML() {
