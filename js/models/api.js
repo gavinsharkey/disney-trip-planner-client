@@ -70,4 +70,21 @@ class API {
     })
     .then(resp => resp.json())
   }
+
+  static createReservation({dayId, reservableId, reservableType, time}) {
+    return fetch(`http://localhost:3000/days/${dayId}/reservations`, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        reservation: {
+          reservable_id: parseInt(reservableId),
+          reservable_type: reservableType,
+          time: time
+        }
+      })
+    })
+    .then(resp => resp.json())
+  }
 }
