@@ -29,7 +29,7 @@ const dayEventDelegation = function() {
   daysDiv.addEventListener('click', (e) => {
     if (e.target.classList.contains('day-data')) {
       Togglable.toggleDayReservations(e.target)
-    } else if (e.target.classList.contains('delete')) {
+    } else if (e.target.classList.contains('delete-day')) {
       const dayId = e.target.parentElement.dataset.dayId
       Day.destroy(dayId)
     }
@@ -39,20 +39,29 @@ const dayEventDelegation = function() {
 const newReservationEventDelegation = function() {
   const newReservationDiv = document.querySelector('#add-reserve-form-div')
   newReservationDiv.addEventListener('change', (e) => {
-    if (e.target.id === 'restaurant-resort-select') {
+    if (e.target.id === 'restaurant-resort-select' && e.target.value !== '') {
       const type = e.target.selectedOptions[0].dataset.type
       if (type === 'park') {
         Loadable.loadRestaurantsByParkSelection(e.target.value)
       } else if (type === 'resort') {
         Loadable.loadRestaurantsByResortSelection(e.target.value)
       }
-    } else if (e.target.id === 'park-select') {
+    } else if (e.target.id === 'park-select' && e.target.value !== '') {
       Loadable.loadAttractionsByParksSelection(e.target.value)
     }
   })
   newReservationDiv.addEventListener('submit', (e) => {
     e.preventDefault()
-    debugger
+    const { reservableType, dayId } = e.target.dataset
+    const time = e.target.querySelector('input[name="time"]').value
+    const reservableId = e.target.querySelector('select[name="reservable_id"]').value
+
+    Reservation.create({
+      dayId,
+      reservableId,
+      reservableType,
+      time
+    })
   })
 }
 
