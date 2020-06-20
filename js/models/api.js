@@ -1,4 +1,29 @@
 class API {
+  static loadResorts() {
+    return fetch('http://localhost:3000/resorts')
+    .then(resp => resp.json())
+  }
+
+  static loadParks() {
+    return fetch('http://localhost:3000/parks')
+    .then(resp => resp.json())
+  }
+
+  static loadAttractionsByPark(parkId) {
+    return fetch(`http://localhost:3000/parks/${parkId}/attractions`)
+    .then(resp => resp.json())
+  }
+
+  static loadRestaurantsByPark(parkId) {
+    return fetch(`http://localhost:3000/parks/${parkId}/restaurants`)
+    .then(resp => resp.json())
+  }
+
+  static loadRestaurantsByResort(resortId) {
+    return fetch(`http://localhost:3000/resorts/${resortId}/restaurants`)
+    .then(resp => resp.json())
+  }
+
   static createTrip(tripName) {
     return fetch('http://localhost:3000/trips', {
       method: 'POST',
