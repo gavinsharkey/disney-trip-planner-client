@@ -72,13 +72,14 @@ class API {
   }
 
   static createReservation({dayId, reservableId, reservableType, time}) {
-    return fetch(`http://localhost:3000/days/${dayId}/reservations`, {
+    return fetch(`http://localhost:3000/reservations`, {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         reservation: {
+          day_id: parseInt(dayId),
           reservable_id: parseInt(reservableId),
           reservable_type: reservableType,
           time: time
@@ -87,4 +88,8 @@ class API {
     })
     .then(resp => resp.json())
   }
+
+  // static destroyReservation(reservationId) {
+  //   return 
+  // }
 }
