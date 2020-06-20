@@ -10,9 +10,29 @@ class Reservation {
     Reservation.all.push(this)
   }
 
+  static create(data) {
+    API.createReservation(data)
+    .then(json => {
+      if (json.errors) {
+        alert(json.errors)
+      } else {
+        this.load(json)
+      }
+    })
+    this.clearForms()
+  }
+
   static load(data) {
     const res = new Reservation(data)
     res.renderHTML()
+  }
+
+  static clearForms() {
+    const restaurantTimeField = document.querySelector('form#restaurant-reserve-form input[name="time"]')
+    const attractionTimeField = document.querySelector('form#attraction-reserve-form input[name="time"]')
+
+    restaurantTimeField.value = ''
+    attractionTimeField.value = ''
   }
 
   static deactivateForms() {
@@ -43,12 +63,23 @@ class Reservation {
     attractionSubmit.disabled = false
   }
 
+  get formattedTime() {
+    const [hour, minute] = this.time.split(':')
+    if (parseInt(hour) < 12) {
+      return `${this.time} AM`
+    } else if (parseInt(hour) > 12) {
+      return `${parseInt(hour) - 12}:${minute} PM`
+    } else {
+      return `${this.time} PM`
+    }
+  }
+
   renderHTML() {
     const dayReservationList = document.querySelector(`li[data-day-id="${this.dayId}"] ul`)
     dayReservationList.innerHTML += `
-      <li class="list-group-item p-2 text-dark" data-reservation-id="${this.id}">
-        <span>${this.type}: ${this.name}</span>
-        <span>, at ${this.time}</span>
+      <li class="list-group-item p-2 text-dark" data-reservation-id="${this.id}" data-reservation-type="${this.type}" data-time="${this.time}">
+        <span>${this.type}: ${this.name}, at ${this.formattedTime}</span>
+        <button class="delete-reservation btn btn-sm btn-dark p-1 float-right">Delete</button>
       </li>
     `
   }
