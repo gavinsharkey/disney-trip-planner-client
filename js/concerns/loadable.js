@@ -1,4 +1,9 @@
 class Loadable {
+  static loadTrips() {
+    API.getTripsData()
+    .then(json => this.fillTripsSelect(json))
+  }
+
   static loadRestaurantResortSelection() {
     const selectBox = document.querySelector('#restaurant-resort-select')
 
@@ -32,6 +37,16 @@ class Loadable {
         `
       }
     })
+  }
+
+  static fillTripsSelect(tripsData) {
+    const tripsSelect = document.querySelector('#trips-select')
+    tripsSelect.innerHTML = ""
+    for (let trip of tripsData) {
+      tripsSelect.innerHTML += `
+        <option value="${trip.id}">${trip.name}</option>
+      `
+    }
   }
 
   static fillRestaurantSelect(data) {
