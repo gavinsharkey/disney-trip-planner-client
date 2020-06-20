@@ -32,6 +32,9 @@ const dayEventDelegation = function() {
     } else if (e.target.classList.contains('delete-day')) {
       const dayId = e.target.parentElement.dataset.dayId
       Day.destroy(dayId)
+    } else if (e.target.classList.contains('delete-reservation')) {
+      const reservationId = e.target.parentElement.dataset.reservationId
+      Reservation.destroy(reservationId)
     }
   })
 }
