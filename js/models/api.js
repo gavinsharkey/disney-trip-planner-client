@@ -89,7 +89,10 @@ class API {
     .then(resp => resp.json())
   }
 
-  // static destroyReservation(reservationId) {
-  //   return 
-  // }
+  static destroyReservation(reservationId) {
+    return fetch(`http://localhost:3000/reservations/${reservationId}`, {
+      method: 'DELETE'
+    })
+    .then(resp => resp.json())
+  }
 }
