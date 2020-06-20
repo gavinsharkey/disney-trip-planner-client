@@ -65,13 +65,23 @@ const dayEventDelegation = function() {
 }
 
 const newReservationEventDelegation = function() {
-  const newReservationForm = document.querySelector('#add-reserve-form')
-  newReservationForm.addEventListener('change', (e) => {
-    if (e.target.id === 'reservable-type-select') {
-
+  const newReservationDiv = document.querySelector('#add-reserve-form-div')
+  newReservationDiv.addEventListener('change', (e) => {
+    if (e.target.id === 'restaurant-resort-select') {
+      const type = e.target.selectedOptions[0].dataset.type
+      if (type === 'park') {
+        Loadable.loadRestaurantsByParkSelection(e.target.value)
+      } else if (type === 'resort') {
+        Loadable.loadRestaurantsByResortSelection(e.target.value)
+      }
+    } else if (e.target.id === 'park-select') {
+      Loadable.loadAttractionsByParksSelection(e.target.value)
     }
   })
-
+  newReservationDiv.addEventListener('submit', (e) => {
+    e.preventDefault()
+    debugger
+  })
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -79,4 +89,6 @@ document.addEventListener('DOMContentLoaded', () => {
   formEventDelegation()
   dayEventDelegation()
   newReservationEventDelegation()
+  Loadable.loadRestaurantResortSelection()
+  Loadable.loadAttractionParksSelection()
 })
