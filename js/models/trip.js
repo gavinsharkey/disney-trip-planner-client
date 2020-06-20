@@ -7,6 +7,24 @@ class Trip {
     Trip.all.push(this)
   }
 
+  static create(tripName) {
+    API.createTrip(tripName)
+    .then(json => {
+      if (json['errors']) {
+        alert(json['errors'][0])
+      } else {
+        this.load(json)
+        Loadable.loadTrips()
+      }
+    })
+  }
+
+  static show(tripId) {
+    Day.clearDaysDiv()
+    API.getTripData(tripId)
+    .then(json => this.load(json))
+  }
+
   static load(data) {
     const trip = new Trip(data)
     trip.setHTML()
