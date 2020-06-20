@@ -43,8 +43,9 @@ class Day {
   static destroy(dayId) {
     API.destroyDay(dayId)
     .then(json => {
-      const day = new Day(json)
-      day.removeHTML()
+      // const day = new Day(json)
+      // day.removeHTML()
+      this.loadDays()
     })
     
   }
@@ -59,10 +60,10 @@ class Day {
     daysDiv.innerHTML += `
       <li class="list-group-item list-group-item-primary p-2 day-data" data-day-id="${this.id}">
         <span>Day ${this.place}</span>
-        <button class="delete btn btn-dark btn-sm">Delete</button>
-        <span class="float-right text-muted message">Click to view reservations</span>
+        <button class="delete-day btn btn-dark btn-sm p-1">Delete</button>
+        <span class="float-right message">Click to view reservations</span>
         <div class="hidden reservation-list">
-          <ul class="list-group"></ul>
+          <ul class="list-group my-1"></ul>
         </div>
       </li>
     `
