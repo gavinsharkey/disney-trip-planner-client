@@ -6,18 +6,41 @@ class Togglable {
     tripDataDiv.classList.remove('hidden')
   }
 
-  static toggleDayReservations(dayElement) {
+  static deactivateDay(dayElement) {
     const reseravtionsDiv = dayElement.querySelector('.reservation-list')
     const liMessage = dayElement.querySelector('span.message')
 
+    Reservation.deactivateForms()
+    dayElement.classList.remove('active')
+    reseravtionsDiv.classList.add('hidden')
+    liMessage.innerText = 'Click to view reservations'
+  }
+
+  static activateDay(dayElement) {
+    const reseravtionsDiv = dayElement.querySelector('.reservation-list')
+    const liMessage = dayElement.querySelector('span.message')
+
+    this.clearActiveDays()
+    Reservation.activateForms(dayElement.dataset.dayId)
+    dayElement.classList.add('active')
+    reseravtionsDiv.classList.remove('hidden')
+    liMessage.innerText = 'Click to hide reservations'
+  } 
+
+  static clearActiveDays() {
+    const days = document.querySelectorAll('#trip-days li.day-data')
+    for (let day of days) {
+      this.deactivateDay(day)
+    }
+  }
+
+  static toggleDayReservations(dayElement) {
+    const reseravtionsDiv = dayElement.querySelector('.reservation-list')
+
     if (reseravtionsDiv.classList.contains('hidden')) {
-      dayElement.classList.add('active')
-      reseravtionsDiv.classList.remove('hidden')
-      liMessage.innerText = 'Click to hide reservations'
+      this.activateDay(dayElement)
     } else {
-      dayElement.classList.remove('active')
-      reseravtionsDiv.classList.add('hidden')
-      liMessage.innerText = 'Click to view reservations'
+      this.deactivateDay(dayElement)
     }
   }
 }
