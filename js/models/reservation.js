@@ -91,7 +91,8 @@ class Reservation {
     const dayReservationList = document.querySelector(`li[data-day-id="${this.dayId}"] ul`)
     dayReservationList.innerHTML += `
       <li class="list-group-item p-2 text-dark" data-reservation-id="${this.id}" data-reservation-type="${this.type}" data-time="${this.time}">
-        <span>${this.type}: ${this.name}, at ${this.formattedTime}</span>
+        <span>${this.type}: ${this.name}</span>
+        <span>Time: ${this.formattedTime}</span>
         <button class="delete-reservation btn btn-sm btn-dark p-1 float-right">Delete</button>
       </li>
     `
