@@ -57,6 +57,12 @@ class API {
     .catch(err => console.log(`ERROR: ${err}`))
   }
 
+  static destroyTrip(tripId) {
+    return fetch(`http://localhost:3000/trips/${tripId}`, {
+      method: 'DELETE'
+    })
+  }
+
   static createDay(tripId) {
     return fetch(`http://localhost:3000/trips/${tripId}/days`, {
       method: 'POST'
