@@ -18,10 +18,24 @@ const formEventDelegation = function() {
   const tripButtons = document.querySelector('#trip-buttons')
   tripButtons.addEventListener('click', (e) => {
     const tripId = document.querySelector('#trip-data').dataset.tripId
+    const tripNameDiv = document.querySelector('div#trip-name-area')
     if (e.target.id === 'add-day-button') {
       Day.create(tripId)
     } else if (e.target.id === 'delete-trip-button') {
       Trip.destroy(tripId)
+    } else if (e.target.id === 'edit-trip-button') {
+      if (e.target.dataset.action === 'edit') {
+        e.target.innerHTML = 'Save'
+        e.target.dataset.action = 'update'
+
+        Trip.loadEditForm()
+      } else if (e.target.dataset.action === 'update') {
+        e.target.innerHTML = 'Edit Trip'
+        e.target.dataset.action = 'edit'
+
+        const newTripName = tripNameDiv.querySelector('input').value
+        Trip.update(tripId, newTripName)
+      }
     }
   })
 }
