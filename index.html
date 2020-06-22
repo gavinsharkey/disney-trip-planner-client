@@ -29,9 +29,12 @@
     </div>
     <div id="trip" class="container-fluid border p-2 clearfix hidden">
       <div id="trip-data" class="container w-50 border p-3 float-left" >
-        <h3 id="trip-name"></h3>
+        <div id="trip-name-area" class="my-2">
+          <h3></h3>
+        </div>
         <div id="trip-buttons">
           <button id="add-day-button" class="btn btn-sm btn-primary">Add Day</button>
+          <button id="edit-trip-button" class="btn btn-sm btn-primary" data-action="edit">Edit Trip</button>
           <button id="delete-trip-button" class="btn btn-sm btn-danger">Delete Trip</button>
         </div>
         <ul id="trip-days" class="list-group mt-1">
@@ -89,7 +92,7 @@
       <div class="container-fluid p-2 px-4 mh-100 text-white">
         <form id="load-trip-form" action="#" class="form-inline">
           <label class="mr-2" for="trip_id">Load Trip:</label>
-          <select class="mr-2" id="trips-select" name="name">
+          <select class="mr-2 form-control p-1" id="trips-select" name="name">
 
           </select>
           <input type="submit" value="Load Trip" class="btn btn-secondary btn-sm">
