@@ -7,13 +7,46 @@ class Trip {
     Trip.all.push(this)
   }
 
+  static loadEditForm() {
+    const tripNameDiv = document.querySelector('div#trip-name-area')
+    tripNameDiv.innerHTML = `
+      <input class="form-control" value="${tripNameDiv.dataset.tripName}">
+    `
+  }
+
+  static reloadTripHeader() {
+    const tripNameDiv = document.querySelector('div#trip-name-area')
+    tripNameDiv.innerHTML = `
+      <h3>${tripNameDiv.dataset.tripName}</h3>
+    `
+  }
+
   static create(tripName) {
     API.createTrip(tripName)
     .then(json => {
-      if (json['errors']) {
-        alert(json['errors'][0])
+      if (json.errors) {
+        alert(json.errors)
       } else {
         this.load(json)
+        Loadable.loadTrips()
+      }
+    })
+  }
+  
+  static show(tripId) {
+    Day.clearDaysDiv()
+    API.getTripData(tripId)
+    .then(json => this.load(json))
+  }
+
+  static update(tripId, tripName) {
+    API.updateTrip(tripId, tripName)
+    .then(json => {
+      if (json.errors) {
+        this.reloadTripHeader()
+        alert(json.errors)
+      } else {
+        this.reload(json)
         Loadable.loadTrips()
       }
     })
@@ -27,10 +60,9 @@ class Trip {
     })
   }
 
-  static show(tripId) {
-    Day.clearDaysDiv()
-    API.getTripData(tripId)
-    .then(json => this.load(json))
+  static reload(data) {
+    const trip = new Trip(data)
+    trip.setHTML()
   }
 
   static load(data) {
@@ -47,18 +79,20 @@ class Trip {
     Day.clearDaysDiv()
     Togglable.toggleTripDiv(false)
 
-    const tripNameHeader = document.querySelector('#trip-name')
+    const tripNameDiv = document.querySelector('div#trip-name-area')
     const tripDataDiv = document.querySelector('#trip-data')
 
-    tripNameHeader.innerHTML = ''
+    tripNameDiv.innerHTML = ''
+    tripNameDiv.dataset.tripName = ''
     tripDataDiv.dataset.tripId = ''
   }
 
   setHTML() {
-    const tripNameHeader = document.querySelector('#trip-name')
+    const tripNameDiv = document.querySelector('div#trip-name-area')
     const tripDataDiv = document.querySelector('#trip-data')
 
-    tripNameHeader.innerHTML = this.name
+    tripNameDiv.innerHTML = `<h3>${this.name}</h3>`
+    tripNameDiv.dataset.tripName = this.name
     tripDataDiv.dataset.tripId = this.id
   }
 }
