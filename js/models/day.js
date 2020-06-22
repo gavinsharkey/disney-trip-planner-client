@@ -35,9 +35,7 @@ class Day {
     const day = new Day(data)
     day.renderHTML()
 
-    for (let reservation of data['reservations']) {
-      Reservation.load(reservation)
-    }
+    Reservation.loadMultiple(data.reservations)
   }
 
   static destroy(dayId) {
