@@ -19,6 +19,14 @@ class Trip {
     })
   }
 
+  static destroy(tripId) {
+    API.destroyTrip(tripId)
+    .then(resp => {
+      this.unload()
+      Loadable.loadTrips()
+    })
+  }
+
   static show(tripId) {
     Day.clearDaysDiv()
     API.getTripData(tripId)
@@ -28,11 +36,22 @@ class Trip {
   static load(data) {
     const trip = new Trip(data)
     trip.setHTML()
-    Togglable.toggleTripDiv()
+    Togglable.toggleTripDiv(true)
 
     for (let day of data['days']) {
       Day.load(day)
     }
+  }
+
+  static unload() {
+    Day.clearDaysDiv()
+    Togglable.toggleTripDiv(false)
+
+    const tripNameHeader = document.querySelector('#trip-name')
+    const tripDataDiv = document.querySelector('#trip-data')
+
+    tripNameHeader.innerHTML = ''
+    tripDataDiv.dataset.tripId = ''
   }
 
   setHTML() {
