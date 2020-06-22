@@ -1,8 +1,6 @@
 const formEventDelegation = function() {
   const newTripFormDiv = document.querySelector('#new-trip-form')
-  const newTripForm = newTripFormDiv.querySelector('form')
-
-  newTripForm.addEventListener('submit', (e) => {
+  newTripFormDiv.addEventListener('submit', (e) => {
     e.preventDefault()
 
     const tripName = e.target.querySelector('input').value
@@ -17,10 +15,14 @@ const formEventDelegation = function() {
     Trip.show(tripId)
   })
 
-  const addDayButton = document.querySelector('#add-day-button')
-  addDayButton.addEventListener('click', (e) => {
+  const tripButtons = document.querySelector('#trip-buttons')
+  tripButtons.addEventListener('click', (e) => {
     const tripId = document.querySelector('#trip-data').dataset.tripId
-    Day.create(tripId)
+    if (e.target.id === 'add-day-button') {
+      Day.create(tripId)
+    } else if (e.target.id === 'delete-trip-button') {
+      Trip.destroy(tripId)
+    }
   })
 }
 
@@ -72,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
   Loadable.loadTrips()
   Loadable.loadRestaurantResortSelection()
   Loadable.loadAttractionParksSelection()
-  
+
   formEventDelegation()
   dayEventDelegation()
   newReservationEventDelegation()
