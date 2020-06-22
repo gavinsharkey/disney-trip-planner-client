@@ -1,29 +1,34 @@
 class Togglable {
-  static toggleTripDiv() {
+  static toggleTripDiv(activate) {
     const div = document.querySelector('#new-trip-form')
     const tripDataDiv = document.querySelector('#trip')
-    div.classList.add('hidden')
-    tripDataDiv.classList.remove('hidden')
+    if (activate) {
+      div.classList.add('hidden')
+      tripDataDiv.classList.remove('hidden')
+    } else {
+      div.classList.remove('hidden')
+      tripDataDiv.classList.add('hidden')
+    }
   }
 
   static deactivateDay(dayElement) {
-    const reseravtionsDiv = dayElement.querySelector('.reservation-list')
+    const reservationsDiv = dayElement.querySelector('.reservation-list')
     const liMessage = dayElement.querySelector('span.message')
 
     Reservation.deactivateForms()
     dayElement.classList.remove('active')
-    reseravtionsDiv.classList.add('hidden')
+    reservationsDiv.classList.add('hidden')
     liMessage.innerText = 'Click to view reservations'
   }
 
   static activateDay(dayElement) {
-    const reseravtionsDiv = dayElement.querySelector('.reservation-list')
+    const reservationsDiv = dayElement.querySelector('.reservation-list')
     const liMessage = dayElement.querySelector('span.message')
 
     this.clearActiveDays()
     Reservation.activateForms(dayElement.dataset.dayId)
     dayElement.classList.add('active')
-    reseravtionsDiv.classList.remove('hidden')
+    reservationsDiv.classList.remove('hidden')
     liMessage.innerText = 'Click to hide reservations'
   } 
 
@@ -35,9 +40,9 @@ class Togglable {
   }
 
   static toggleDayReservations(dayElement) {
-    const reseravtionsDiv = dayElement.querySelector('.reservation-list')
+    const reservationsDiv = dayElement.querySelector('.reservation-list')
 
-    if (reseravtionsDiv.classList.contains('hidden')) {
+    if (reservationsDiv.classList.contains('hidden')) {
       this.activateDay(dayElement)
     } else {
       this.deactivateDay(dayElement)
