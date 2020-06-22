@@ -57,6 +57,21 @@ class API {
     .catch(err => console.log(`ERROR: ${err}`))
   }
 
+  static updateTrip(tripId, tripName) {
+    return fetch(`http://localhost:3000/trips/${tripId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        trip: {
+          name: tripName
+        }
+      })
+    })
+    .then(resp => resp.json())
+  }
+
   static destroyTrip(tripId) {
     return fetch(`http://localhost:3000/trips/${tripId}`, {
       method: 'DELETE'
