@@ -2,6 +2,7 @@ class Togglable {
   static toggleTripDiv(activate) {
     const div = document.querySelector('#new-trip-form')
     const tripDataDiv = document.querySelector('#trip')
+    
     if (activate) {
       div.classList.add('hidden')
       tripDataDiv.classList.remove('hidden')
