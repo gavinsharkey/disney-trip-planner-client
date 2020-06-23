@@ -19,10 +19,12 @@ class Day {
 
   static loadDays() {
     const tripId = document.querySelector('#trip-data').dataset.tripId
-    this.clearDaysDiv()
 
     API.loadDaysByTrip(tripId)
-    .then(json => this.loadMultiple(json))
+    .then(json => {
+      this.clearDaysDiv()
+      this.loadMultiple(json)
+    })
   }
 
   static loadMultiple(days) {
