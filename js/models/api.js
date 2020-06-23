@@ -92,6 +92,11 @@ class API {
     .then(resp => resp.json())
   }
 
+  static getReservations(dayId) {
+    return fetch(`http://localhost:3000/days/${dayId}/reservations`)
+    .then(resp => resp.json())
+  }
+
   static createReservation({dayId, reservableId, reservableType, time}) {
     return fetch(`http://localhost:3000/reservations`, {
       method: "POST",
