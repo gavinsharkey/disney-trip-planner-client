@@ -17,6 +17,8 @@ class Reservation {
         alert(json.errors)
       } else {
         this.load(json)
+        this.reloadReservationsInPlace(json.day_id)
+        // this.reloadReservations(json.day_id)
       }
     })
     this.clearForms()
@@ -30,9 +32,37 @@ class Reservation {
     })
   }
 
+  static reloadReservationsInPlace(dayId) {
+    const dayReservationList = document.querySelector(`li[data-day-id="${dayId}"] ul`)
+    const dayReservations = Array.from(dayReservationList.querySelectorAll('li'))
+    
+    const sortedDayReservations = Sortable.sortByTime(dayReservations, li => li.dataset.time)
+    dayReservationList.innerHTML = sortedDayReservations.map(li => li.outerHTML).join('')
+  }
+
+  // static reloadReservations(dayId) {
+  //   API.getReservations(dayId)
+  //   .then(json => {
+  //     this.clearReservationList(dayId)
+  //     this.loadMultiple(json)
+  //   })
+  // }
+
+  static loadMultiple(reservations) {
+    reservations = Sortable.sortByTime(reservations, elem => elem.time)
+    for (let reservation of reservations) {
+      this.load(reservation)
+    }
+  }
+
   static load(data) {
     const res = new Reservation(data)
     res.renderHTML()
+  }
+
+  static clearReservationList(dayId) {
+    const dayReservationList = document.querySelector(`li[data-day-id="${dayId}"] ul`)
+    dayReservationList.innerHTML = ''
   }
 
   static clearForms() {
@@ -93,7 +123,7 @@ class Reservation {
       <li class="list-group-item p-2 text-dark" data-reservation-id="${this.id}" data-reservation-type="${this.type}" data-time="${this.time}">
         <span>${this.type}: ${this.name}</span>
         <span>Time: ${this.formattedTime}</span>
-        <button class="delete-reservation btn btn-sm btn-dark p-1 float-right">Delete</button>
+        <button class="delete-reservation btn btn-sm btn-danger p-1 float-right">Delete</button>
       </li>
     `
   }
