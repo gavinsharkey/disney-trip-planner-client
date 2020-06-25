@@ -28,7 +28,7 @@ const formEventDelegation = function() {
         e.target.innerHTML = 'Save'
         e.target.dataset.action = 'update'
 
-        Trip.loadEditForm()
+        Togglable.toggleTripEditForm(true)
       } else if (e.target.dataset.action === 'update') {
         e.target.innerHTML = 'Edit Trip'
         e.target.dataset.action = 'edit'
@@ -51,6 +51,20 @@ const dayEventDelegation = function() {
     } else if (e.target.classList.contains('delete-reservation')) {
       const reservationId = e.target.parentElement.dataset.reservationId
       Reservation.destroy(reservationId)
+    } else if (e.target.classList.contains('edit-reservation')) {
+      const reservationId = e.target.parentElement.dataset.reservationId
+      if (e.target.dataset.action === 'edit') {
+        e.target.dataset.action = 'update'
+        e.target.innerHTML = 'Save'
+
+        Togglable.toggleEditReservationForm(reservationId, true)
+      } else if (e.target.dataset.action === 'update') {
+        e.target.dataset.action = 'edit'
+        e.target.innerHTML = 'Edit Time'
+        
+        const newTime = e.target.parentElement.querySelector('span.reservation-time input').value
+        Reservation.update(reservationId, newTime)
+      }
     }
   })
 }
