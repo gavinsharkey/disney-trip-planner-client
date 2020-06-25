@@ -115,6 +115,21 @@ class API {
     .then(resp => resp.json())
   }
 
+  static updateReservation(reservationId, newTime) {
+    return fetch(`http://localhost:3000/reservations/${reservationId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        reservation: {
+          time: newTime
+        }
+      })
+    })
+    .then(resp => resp.json())
+  }
+
   static destroyReservation(reservationId) {
     return fetch(`http://localhost:3000/reservations/${reservationId}`, {
       method: 'DELETE'
