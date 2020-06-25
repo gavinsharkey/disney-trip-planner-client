@@ -7,20 +7,6 @@ class Trip {
     Trip.all.push(this)
   }
 
-  static loadEditForm() {
-    const tripNameDiv = document.querySelector('div#trip-name-area')
-    tripNameDiv.innerHTML = `
-      <input class="form-control" value="${tripNameDiv.dataset.tripName}">
-    `
-  }
-
-  static reloadTripHeader() {
-    const tripNameDiv = document.querySelector('div#trip-name-area')
-    tripNameDiv.innerHTML = `
-      <h3>${tripNameDiv.dataset.tripName}</h3>
-    `
-  }
-
   static create(tripName) {
     API.createTrip(tripName)
     .then(json => {
@@ -43,7 +29,7 @@ class Trip {
     API.updateTrip(tripId, tripName)
     .then(json => {
       if (json.errors) {
-        this.reloadTripHeader()
+        Togglable.toggleTripEditForm(false)
         alert(json.errors)
       } else {
         this.reload(json)
@@ -70,9 +56,7 @@ class Trip {
     trip.setHTML()
     Togglable.toggleTripDiv(true)
 
-    for (let day of data['days']) {
-      Day.load(day)
-    }
+    Day.loadMultiple(data.days)
   }
 
   static unload() {

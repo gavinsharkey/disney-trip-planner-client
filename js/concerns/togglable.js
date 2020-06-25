@@ -2,13 +2,26 @@ class Togglable {
   static toggleTripDiv(activate) {
     const div = document.querySelector('#new-trip-form')
     const tripDataDiv = document.querySelector('#trip')
-    
+
     if (activate) {
       div.classList.add('hidden')
       tripDataDiv.classList.remove('hidden')
     } else {
       div.classList.remove('hidden')
       tripDataDiv.classList.add('hidden')
+    }
+  }
+
+  static toggleTripEditForm(activate) {
+    const tripNameDiv = document.querySelector('div#trip-name-area')
+    if (activate) {
+      tripNameDiv.innerHTML = `
+        <input class="form-control" value="${tripNameDiv.dataset.tripName}">
+      `
+    } else {
+      tripNameDiv.innerHTML = `
+       <h3>${tripNameDiv.dataset.tripName}</h3>
+       `
     }
   }
 
@@ -47,6 +60,17 @@ class Togglable {
       this.activateDay(dayElement)
     } else {
       this.deactivateDay(dayElement)
+    }
+  }
+
+  static toggleEditReservationForm(reservationId, activate) {
+    const reservationLi = document.querySelector(`li[data-reservation-id="${reservationId}"]`)
+    const reservationTimeSpan = reservationLi.querySelector('span.reservation-time')
+    
+    if (activate) {
+      reservationTimeSpan.innerHTML = `<input type="time" value="${reservationLi.dataset.time}">`
+    } else {
+      reservationTimeSpan.innerHTML = `<span>Time: ${Formattable.formatTime(reservationLi.dataset.time)}</span>`
     }
   }
 }
