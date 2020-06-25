@@ -24,6 +24,20 @@ class Reservation {
     this.clearForms()
   }
 
+  static update(reservationId, newTime) {
+    API.updateReservation(reservationId, newTime)
+    .then(json => {
+      if (json.errors) {
+        Togglable.toggleEditReservationForm(reservationId, false)
+        alert(json.errors)
+      } else {
+        const res = new Reservation(json)
+        res.updateHTML()
+        this.reloadReservationsInPlace(res.dayId)
+      }
+    })
+  }
+
   static destroy(reservationId) {
     API.destroyReservation(reservationId)
     .then(json => {
@@ -102,14 +116,7 @@ class Reservation {
   }
 
   get formattedTime() {
-    const [hour, minute] = this.time.split(':')
-    if (parseInt(hour) < 12) {
-      return `${this.time} AM`
-    } else if (parseInt(hour) > 12) {
-      return `${parseInt(hour) - 12}:${minute} PM`
-    } else {
-      return `${this.time} PM`
-    }
+    return Formattable.formatTime(this.time)
   }
 
   removeHTML() {
@@ -117,13 +124,20 @@ class Reservation {
     reservationLi.remove()
   }
 
+  updateHTML() {
+    const reservationLi = document.querySelector(`li[data-reservation-id="${this.id}"]`)
+    reservationLi.dataset.time = this.time
+    reservationLi.querySelector('span.reservation-time').innerHTML = `Time: ${this.formattedTime}`
+  }
+
   renderHTML() {
     const dayReservationList = document.querySelector(`li[data-day-id="${this.dayId}"] ul`)
     dayReservationList.innerHTML += `
       <li class="list-group-item p-2 text-dark" data-reservation-id="${this.id}" data-reservation-type="${this.type}" data-time="${this.time}">
         <span>${this.type}: ${this.name}</span>
-        <span>Time: ${this.formattedTime}</span>
-        <button class="delete-reservation btn btn-sm btn-danger p-1 float-right">Delete</button>
+        <span class="reservation-time">Time: ${this.formattedTime}</span>
+        <button class="delete-reservation btn btn-sm btn-danger mx-1 p-1 float-right">Delete</button>
+        <button class="edit-reservation btn btn-sm btn-dark mx-1 p-1 float-right" data-action="edit">Edit Time</button>
       </li>
     `
   }
