@@ -4,7 +4,7 @@ const formEventDelegation = function() {
     e.preventDefault()
     const tripNameInput = e.target.querySelector('input')
     const tripName = tripNameInput.value
-    
+
     Trip.create(tripName)
     tripNameInput.value = ''
   })
