@@ -2,9 +2,11 @@ const formEventDelegation = function() {
   const newTripFormDiv = document.querySelector('#new-trip-form')
   newTripFormDiv.addEventListener('submit', (e) => {
     e.preventDefault()
-
-    const tripName = e.target.querySelector('input').value
+    const tripNameInput = e.target.querySelector('input')
+    const tripName = tripNameInput.value
+    
     Trip.create(tripName)
+    tripNameInput.value = ''
   })
 
   const loadTripForm = document.querySelector('#load-trip-form')
