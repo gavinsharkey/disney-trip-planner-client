@@ -18,6 +18,16 @@ class Trip {
       }
     })
   }
+
+  static toggleLike() {
+    const tripNameText = document.querySelector('div#trip-name-area h3')
+    const tripLike = tripNameText.querySelector('span')
+    if (tripLike) {
+      tripLike.remove()
+    } else {
+      tripNameText.innerHTML += '<span>&#10084;</span>'
+    }
+  }
   
   static show(tripId) {
     Day.clearDaysDiv()
