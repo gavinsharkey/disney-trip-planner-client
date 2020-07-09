@@ -84,7 +84,10 @@ class Trip {
   setHTML() {
     const tripNameDiv = document.querySelector('div#trip-name-area')
     const tripDataDiv = document.querySelector('#trip-data')
-
+    const likeButton = document.querySelector('#fav-trip-button')
+  
+    likeButton.dataset.action = 'like'
+    likeButton.innerHTML = 'Like'
     tripNameDiv.innerHTML = `<h3>${this.name}</h3>`
     tripNameDiv.dataset.tripName = this.name
     tripDataDiv.dataset.tripId = this.id
