@@ -38,6 +38,15 @@ const formEventDelegation = function() {
         const newTripName = tripNameDiv.querySelector('input').value
         Trip.update(tripId, newTripName)
       }
+    } else if (e.target.id === 'fav-trip-button') {
+      if (e.target.dataset.action === 'like') {
+        e.target.innerHTML = 'Unlike'
+        e.target.dataset.action = 'unlike'
+      } else {
+        e.target.innerHTML = 'Like'
+        e.target.dataset.action = 'like'
+      }
+      Trip.toggleLike()
     }
   })
 }
