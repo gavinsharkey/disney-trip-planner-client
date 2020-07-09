@@ -25,31 +25,49 @@ class Togglable {
     }
   }
 
-  static deactivateDay(dayElement) {
+  // static deactivateDay(dayElement) {
+  //   const reservationsDiv = dayElement.querySelector('.reservation-list')
+  //   const liMessage = dayElement.querySelector('span.message')
+
+  //   Reservation.deactivateForms()
+  //   dayElement.classList.remove('active')
+  //   reservationsDiv.classList.add('hidden')
+  //   liMessage.innerText = 'Click to view reservations'
+  // }
+
+  // static activateDay(dayElement) {
+  //   const reservationsDiv = dayElement.querySelector('.reservation-list')
+  //   const liMessage = dayElement.querySelector('span.message')
+
+  //   this.clearActiveDays()
+  //   Reservation.activateForms(dayElement.dataset.dayId)
+  //   dayElement.classList.add('active')
+  //   reservationsDiv.classList.remove('hidden')
+  //   liMessage.innerText = 'Click to hide reservations'
+  // } 
+
+  static toggleDay(activate, dayElement) {
     const reservationsDiv = dayElement.querySelector('.reservation-list')
     const liMessage = dayElement.querySelector('span.message')
 
-    Reservation.deactivateForms()
-    dayElement.classList.remove('active')
-    reservationsDiv.classList.add('hidden')
-    liMessage.innerText = 'Click to view reservations'
+    if (activate) {
+      this.clearActiveDays()
+      Reservation.activateForms(dayElement.dataset.dayId)
+      dayElement.classList.add('active')
+      reservationsDiv.classList.remove('hidden')
+      liMessage.innerText = 'Click to hide reservations'
+    } else {
+      Reservation.deactivateForms()
+      dayElement.classList.remove('active')
+      reservationsDiv.classList.add('hidden')
+      liMessage.innerText = 'Click to view reservations'
+    }
   }
-
-  static activateDay(dayElement) {
-    const reservationsDiv = dayElement.querySelector('.reservation-list')
-    const liMessage = dayElement.querySelector('span.message')
-
-    this.clearActiveDays()
-    Reservation.activateForms(dayElement.dataset.dayId)
-    dayElement.classList.add('active')
-    reservationsDiv.classList.remove('hidden')
-    liMessage.innerText = 'Click to hide reservations'
-  } 
 
   static clearActiveDays() {
     const days = document.querySelectorAll('#trip-days li.day-data')
     for (let day of days) {
-      this.deactivateDay(day)
+      this.toggleDay(false, day)
     }
   }
 
@@ -57,9 +75,9 @@ class Togglable {
     const reservationsDiv = dayElement.querySelector('.reservation-list')
 
     if (reservationsDiv.classList.contains('hidden')) {
-      this.activateDay(dayElement)
+      this.toggleDay(true, dayElement)
     } else {
-      this.deactivateDay(dayElement)
+      this.toggleDay(false, dayElement)
     }
   }
 
